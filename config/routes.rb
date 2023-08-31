@@ -3,6 +3,15 @@ Rails.application.routes.draw do
 
   # Defines the root path route ("/")
   # root "articles#index"
-  resources :colleges, :users, :addresses, :courses
-  # get "/colleges", to: "colleges#create"
+  resources :colleges do 
+    resource :courses
+    resource :addresses
+  end
+
+  resources :users do
+    resource :addresses
+    get "find_user" , on: :collection
+  end
+  get "/colleges/find_college/:course_name", to: "colleges#find_college" 
+  resources :courses , :addresses , only: [:index, :destroy, :update,:create]
 end
