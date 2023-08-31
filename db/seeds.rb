@@ -8,8 +8,8 @@
 =begin 
  c=College.new(college_name:"ips",city:"indore")
  u=User.create!(name:"sachin",mobile_number:"123456789",address:"indore")
- a=Address.create!(name:"sachin",mobile_number:"123456789",add:"in
-dore")
 c.create_address(area:"mhow",city:"indore")
 Course.create!(course_name:"btech",college_id:1)
+"course_name": "mba",
+    "college_id": 1
 =end
