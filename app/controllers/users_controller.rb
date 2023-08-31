@@ -49,9 +49,18 @@ class UsersController < ApplicationController
     	render json: {message: "Data Not Found"}
     end
 	end
+
+  def find_user
+    @user = User.joins(:course).select("courses.course_name ,group_concat(name)").group('courses.course_name')
+    if @user
+     render json: @user
+    else
+      render json: {message: "User Not Found"}
+    end
+  end
   
   private
    def user_info
-  	 params.permit(:name,:mobile_number,:add,:course_id)
+  	 params.permit(:name,:mobile_number,:age,:course_id)
    end
 end

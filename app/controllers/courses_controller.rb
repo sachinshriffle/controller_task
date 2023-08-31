@@ -3,23 +3,23 @@ class CoursesController < ApplicationController
 	skip_before_action :verify_authenticity_token
 
   def index
-  	@course = Course.all 
-  	render json: @course
+  	course = Course.all 
+  	render json: course
   end
 
   def create
-    @course = Course.new(course_info)
-    if @course.save
-      render json: @course
+    course = Course.new(course_info)
+    if course.save
+      render json: course
     else
-      render json: {errors: @course.errors.messages}
+      render json: {errors: course.errors.messages}
     end
   end
 
   def destroy
-  	@course = Course.find_by_id(params[:id])
-  	if @course
-  	 @course.destroy
+  	course = Course.find_by_id(params[:id])
+  	if course
+  	 course.destroy
   	 render json: {messages: "Course Delete Succesfully!"}
   	else
   		render json: {message:"Data Not Found"}
@@ -27,12 +27,12 @@ class CoursesController < ApplicationController
   end
 
   def update
-	  @course = Course.find_by_id(params[:id])
+	  course = Course.find_by_id(params[:id])
 
-	  if @course 
-	  	u=@course.update(course_info)
+	  if course 
+	  	u=course.update(course_info)
 	  	if u
-	      render json: {data: @course,message: "Course Update Succesfully"}
+	      render json: {data: course,message: "Course Update Succesfully"}
 	    else
 	    	render json: {message: "Course Already Exist"}
 	    end
@@ -42,9 +42,10 @@ class CoursesController < ApplicationController
 	end
 
 	def show
-	  @course = Course.find_by_id(params[:id])
-	  if @course
-	    render json: @course
+	  college = College.find_by_id(params[:college_id])
+	  course = college.courses
+	  unless course.blank?
+	    render json: course
     else
     	render json: {message: "Data Not Found"}
     end
